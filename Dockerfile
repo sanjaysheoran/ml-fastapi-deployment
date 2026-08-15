@@ -3,8 +3,12 @@ FROM python:3.11.15-slim-trixie
 
 WORKDIR /fastapiapp
 
-COPY . .
-RUN pip install -r requirements.txt
+#copy requirements.txt and install all dependent libraries
+COPY requirements.txt .
+RUN python -m pip install --no-cache-dir -r requirements.txt
 
-#run this command while running the container
+#copy all other required files to Docker Image
+COPY app.py model.joblib Dockerfile compose.yml ./
+
+#Docker will execute this command while running the container
 CMD uvicorn app:fastapi --reload --host=0.0.0.0
