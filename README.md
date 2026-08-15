@@ -1,4 +1,7 @@
-# ml-fastapi-deployment
-This repo is for creating an application using fastapi.  
+# ml-fastapi-deployment.  
+Create requirement.txt from requirements.in using uv command.  
+Creating an application using fastapi.   
 Create a Dockerfile to create image and run container.   
-Then write a GitAction which will get triggered with the commit on master branch and run the Dockerfile. 
+Run docker container on 9000 port
+Write a GitAction which will get triggered with the commit on main branch which will eventually run the Dockerfile file using Compose run.  
+Build the Image and the Run the container
