@@ -8,4 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker compose up -d
+
+      - name: Start containers
+        run: docker compose up -d
+      
+      - name: Check running containers
+        run: docker compose ps
+        
+      - name: View container logs
+        run: docker compose logs
+        
+      - name: Test if FastAPI responds
+        run: |
+          sleep 3
+          curl -I http://localhost:8000/health
