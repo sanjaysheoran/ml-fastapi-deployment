@@ -21,4 +21,4 @@ jobs:
       - name: Test if FastAPI responds
         run: |
           sleep 3
-          curl -I http://localhost:9000/health 
+          curl -f http://localhost:9000/health 
