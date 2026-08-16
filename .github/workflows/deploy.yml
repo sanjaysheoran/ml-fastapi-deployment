@@ -1,4 +1,5 @@
-name: Deploy
+name: Trigger, Build and Deploy Application
+#trigger the git action with a commit on main branch
 on:
   push:
     branches: [ main ]
@@ -9,15 +10,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      #Run docker compose command to build and run the docker container
       - name: Start containers
         run: docker compose up -d
       
+      #To see running containers
       - name: Check running containers
         run: docker compose ps
         
+      #To see container logs
       - name: View container logs
         run: docker compose logs
         
+      #Check the get health service of application to make sure it is up and running.
       - name: Test if FastAPI responds
         run: |
           sleep 3

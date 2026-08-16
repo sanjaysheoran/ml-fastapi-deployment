@@ -1,8 +1,11 @@
 version: "1"
 
+#creating a compose file so that I don't need to remember the name, build and run docker container everytime.
 services:
   web:
+    #user the Dockerfile at current folder to build the image and run the container
     build: .
+    #Expose 9000 as external port and internally it will be connected with docker 8000 port.
     ports:
       - 9000:8000
     volumes:
