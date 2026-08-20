@@ -2,8 +2,8 @@
 1. Initially I created requirements.txt manually by providing the version of 5 library but after learning from class I used uv command to create requirements.txt from requirements.in. Which help us listing the version of library/package and also the dependent package so that whole team will have same behaviour
 2. I was facing problem setting up conda environment on my local because pip was used from base environment and installing the packages in base packages. After installing pip on conda environment evrrything worked fine and I was able to execute the application on local
 3. Initially I used docker build for creating image and then run for running the container with the port. Later I learned about docker compose file where I can provide the port and I just need to run docker compose up command to create image and run container.
-4. Below are logs from docker showing application was running on port 8000 and then I hit the service for checking health and then predict the results.
-web-1  | INFO:     Will watch for changes in these directories: ['/fastapiapp']
+4. Below are logs from docker showing application was running on port 8000 and then I hit the service for checking health and then predict the results.  
+```web-1  | INFO:     Will watch for changes in these directories: ['/fastapiapp']
 web-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 web-1  | INFO:     Started reloader process [7] using WatchFiles
 web-1  | INFO:     Started server process [9]
@@ -14,9 +14,9 @@ web-1  | INFO:     172.19.0.1:62736 - "GET /openapi.json HTTP/1.1" 200 OK
 web-1  | INFO:     172.19.0.1:62736 - "GET /health HTTP/1.1" 200 OK
 web-1  | /usr/local/lib/python3.11/site-packages/sklearn/utils/validation.py:2739: UserWarning: X does not have valid feature names, but RandomForestRegressor was fitted with feature names
 web-1  |   warnings.warn(
-web-1  | INFO:     172.19.0.1:62738 - "POST /predict HTTP/1.1" 200 OK
+web-1  | INFO:     172.19.0.1:62738 - "POST /predict HTTP/1.1" 200 OK ```
 5. Git Actions build the application with every commit on main branch. This help developer for Continous integration and deployment. With the deployment it checks for container logs and also hit the health service to verify if service is running properly. Below are logs from action
-View container logs
+```View container logs
 Run docker compose logs
 time="2026-08-16T02:26:35Z" level=warning msg="/home/runner/work/ml-fastapi-deployment/ml-fastapi-deployment/compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
 web-1  | INFO:     Will watch for changes in these directories: ['/fastapiapp']
@@ -29,7 +29,7 @@ Run sleep 3
 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
 100    27  100    27    0     0   3943      0 --:--:-- --:--:-- --:--:--  4500
-{"status":"healthy server"}
+{"status":"healthy server"}```.  
 
 # Why I made particulat deployment/architecture decision
 1. requirements.txt help keeping same version for all packages and dependencies for all team. So this will allow all developer to run the same version of packages and it will reproduce the same results.
@@ -39,7 +39,7 @@ Run sleep 3
 
 # Results and logs
 1. Application log on local
-docker compose up
+```docker compose up
 WARN[0000] /Users/sanjaysheoran/Documents/ML-AI/VS-Folder/ml-fastapi-deployment/compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
 [+] up 1/1
  ✔ Container ml-fastapi-deployment-web-1 Recreated                                                          0.1s
@@ -53,9 +53,16 @@ web-1  | INFO:     Application startup complete.
 web-1  | INFO:     172.19.0.1:62736 - "GET /docs HTTP/1.1" 200 OK
 web-1  | INFO:     172.19.0.1:62736 - "GET /openapi.json HTTP/1.1" 200 OK
 web-1  | INFO:     172.19.0.1:62736 - "GET /health HTTP/1.1" 200 OK
-web-1  | INFO:     172.19.0.1:62738 - "POST /predict HTTP/1.1" 200 OK
-2. Below is log file from git action where it is setting up a jobm starting a container and then checking the container and hitting the health service to make sure service is up and runnning.
+web-1  | INFO:     172.19.0.1:62738 - "POST /predict HTTP/1.1" 200 OK```
+2. Below is log file from git action where it is setting up a jobm starting a container and then checking the container and hitting the health service to make sure service is up and runnning.  
 https://productionresultssa14.blob.core.windows.net/actions-results/6b234462-f219-4d41-b394-b602d63c1526/workflow-job-run-722cd570-cf9f-5855-b9ab-cc93594e7511/logs/job/job-logs.txt?rsct=text%2Fplain&se=2026-08-20T08%3A10%3A52Z&sig=Rf4L5B6uv6ATMBecy5nRU36%2BBxClCyjKM3JSWWco47Q%3D&ske=2026-08-20T09%3A21%3A41Z&skoid=ca7593d4-ee42-46cd-af88-8b886a2f84eb&sks=b&skt=2026-08-20T05%3A21%3A41Z&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skv=2025-11-05&sp=r&spr=https&sr=b&st=2026-08-20T08%3A00%3A47Z&sv=2025-11-05
+
+
+# Key lessons learned and what you would change for a production deployment
+1. Environment should be setup so that it would be same for all developer
+2. System should support Developer to execute, deploy and validate the changes as soon as possible.
+3. For this assignment, we used a simple model without any scaler but for production we need to update the model with additional customization including data cleaning, data validation, preprocessing, etc
+4. Developer should be able to commit only for lower environment and there should be a process for merging all the changes from feature branch to main branch so that deployment to production should be more streamlined and individual developer should not be able to do the deployment on production.
 
 
 # What’s different about deploying ML models vs normal software?  
