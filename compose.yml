@@ -5,8 +5,8 @@ services:
   web:
     #user the Dockerfile at current folder to build the image and run the container
     build: .
-    #Expose 9000 as external port and internally it will be connected with docker 8000 port.
+    #Expose 8000 as external port and internally it will be connected with docker 8000 port.
     ports:
-      - 9000:8000
+      - 8000:8000
     volumes:
       - .:/fastapiapp
