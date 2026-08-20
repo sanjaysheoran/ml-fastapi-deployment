@@ -14,7 +14,8 @@ web-1  | INFO:     172.19.0.1:62736 - "GET /openapi.json HTTP/1.1" 200 OK
 web-1  | INFO:     172.19.0.1:62736 - "GET /health HTTP/1.1" 200 OK
 web-1  | /usr/local/lib/python3.11/site-packages/sklearn/utils/validation.py:2739: UserWarning: X does not have valid feature names, but RandomForestRegressor was fitted with feature names
 web-1  |   warnings.warn(
-web-1  | INFO:     172.19.0.1:62738 - "POST /predict HTTP/1.1" 200 OK ```
+web-1  | INFO:     172.19.0.1:62738 - "POST /predict HTTP/1.1" 200 OK 
+```  
 5. Git Actions build the application with every commit on main branch. This help developer for Continous integration and deployment. With the deployment it checks for container logs and also hit the health service to verify if service is running properly. Below are logs from action
 ```View container logs
 Run docker compose logs
@@ -29,7 +30,8 @@ Run sleep 3
 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
 100    27  100    27    0     0   3943      0 --:--:-- --:--:-- --:--:--  4500
-{"status":"healthy server"}```.  
+{"status":"healthy server"}
+```   
 
 # Why I made particulat deployment/architecture decision
 1. requirements.txt help keeping same version for all packages and dependencies for all team. So this will allow all developer to run the same version of packages and it will reproduce the same results.
@@ -53,7 +55,8 @@ web-1  | INFO:     Application startup complete.
 web-1  | INFO:     172.19.0.1:62736 - "GET /docs HTTP/1.1" 200 OK
 web-1  | INFO:     172.19.0.1:62736 - "GET /openapi.json HTTP/1.1" 200 OK
 web-1  | INFO:     172.19.0.1:62736 - "GET /health HTTP/1.1" 200 OK
-web-1  | INFO:     172.19.0.1:62738 - "POST /predict HTTP/1.1" 200 OK```
+web-1  | INFO:     172.19.0.1:62738 - "POST /predict HTTP/1.1" 200 OK
+```  
 2. Below is log file from git action where it is setting up a jobm starting a container and then checking the container and hitting the health service to make sure service is up and runnning.  
 https://productionresultssa14.blob.core.windows.net/actions-results/6b234462-f219-4d41-b394-b602d63c1526/workflow-job-run-722cd570-cf9f-5855-b9ab-cc93594e7511/logs/job/job-logs.txt?rsct=text%2Fplain&se=2026-08-20T08%3A10%3A52Z&sig=Rf4L5B6uv6ATMBecy5nRU36%2BBxClCyjKM3JSWWco47Q%3D&ske=2026-08-20T09%3A21%3A41Z&skoid=ca7593d4-ee42-46cd-af88-8b886a2f84eb&sks=b&skt=2026-08-20T05%3A21%3A41Z&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skv=2025-11-05&sp=r&spr=https&sr=b&st=2026-08-20T08%3A00%3A47Z&sv=2025-11-05
 
